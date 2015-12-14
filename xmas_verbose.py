@@ -1,19 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+''' NOTE: This is an earlier version of the code than in the iterator and the contest entry ''' 
+
 import sys,time
-
-def elim28(i): 
-	''' a custom method for filter() to remove any numbers from a list that aren't divisible by 28 '''
-	''' it's faster to have a separate method for the three divisors than roll it into one single one '''
-	return (i % 28 == 0) 
-
-def elim30(i): 
-	''' a custom method for filter() to remove any numbers from a list that aren't divisible by 30 '''
-	return (i % 30 == 0)  
-
-def elim31(i): 
-	''' a custom method for filter() to remove any numbers from a list that aren't divisible by 31 '''
-	return (i % 31 == 0)  
 
 def dedupe(i): 
 	''' a custom method for filter() to eliminate any three digit numbers where two of the digits are identical '''
@@ -36,12 +26,11 @@ def run():
 	we want all the possible numbers than can represent january/may. We calculate this list here because we use it 
 	twice and its cheaper to only calculate it once.
 
-	The dedupe and elim methods used in the filter make sure we're not including numbers in the list that would break the rules
-	of the task (ie, not divisible, non unique)
+	The dedupe method used in the filter makes sure we're not including numbers in the list that would break the rules
+	of the task (ie, non unique)
 	'''
 
-	jm = filter(dedupe, filter(elim31, range(124,962,31)))
-	
+	jm = filter(dedupe, range(124,962,31))	
 
 	'''
 	because we know that in APR, r=0 and its important to know what values A can be for when we come to JAN/MAY, we start to 
@@ -49,7 +38,7 @@ def run():
 
 	The range used represents the lowest possible divisible number and the highest possible divisible number that are still 3 digits.
 	'''
-	for a in filter(dedupe, filter(elim30, range(120,980,30))):
+	for a in filter(dedupe, range(120,980,30)):
 
 		''' we build a list whose first three members represent A, P and R. It's faster than using a dictionary object to key the values '''
 		l = []
@@ -81,7 +70,7 @@ def run():
 						To be here, our list must now contain valid numbers representing APR, MAY and JAN 
 						We should filter down the candidates for FEB as much as we can, and then iterate them.
 						'''
-						for f in filter(elim28, range(140,980,28)):
+						for f in range(140,980,28):
 							sf = str(f)
 
 							''' If we find a match here that passes all the rules, this must be the answer. Stop immediately! '''
