@@ -31,8 +31,11 @@ def run():
 								return [sf[0], sf[1], sf[2]]
 
 if __name__ == '__main__':
-	t = time.time()
-	a = ''.join(run())
-	e = time.time() - t
+	it = 1000
+	e = 0
+	for i in range(0,it):
+		t = time.time()
+		a = ''.join(run())
+		e += time.time() - t
 
-	sys.stdout.write(str('%s\n%iµs\n' % (a, e * 1000000)))
+	sys.stdout.write(str('%s\n%iµs\n' % (a, round((e/it) * 1000000))))
