@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import sys,time
-  
-def dedupe(i): return len(set(str(i))) == 3
+ 
+def dedupe(i): 
+	i = str(i)
+	return not (i[0] == i[1] or i[0] == i[2] or i[1] == i[2])
 def strip(p, i, l):
 	rl = []
 	for li in l:
@@ -21,14 +23,14 @@ def run():
 						l.extend([j[0], j[2]])
 						for f in map(str,range(140,980,28)):
 							if not (f[0] in l or f[1] in l or f[2] in l):
-								return [f[0], f[1], f[2]]
+								return ''.join([f[0], f[1], f[2]])
 
 if __name__ == '__main__':
 	it = 1000
 	e = 0
 	for i in range(0,it):
 		t = time.time()
-		a = ''.join(run())
+		a = run()
 		e += time.time() - t
 
-	sys.stdout.write(str('%s\n%iµs\n' % (a, round((e/it) * 1000000))))
+	sys.stdout.write(str('%s\n%iµs\n' % (a, (e/it) * 1000000)))
